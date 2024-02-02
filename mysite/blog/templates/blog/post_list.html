@@ -1,0 +1,21 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}
+Posts
+{% endblock %}
+
+{% block content %}
+
+    {% for post in post_list %}
+        <div class="post border rounded-3 my-5 p-4 bg-secondary bg-opacity-10">
+            <h1><a class="nav-link" href="{% url 'post_detail' pk=post.pk%}">{{post.title}}</a></h1>
+            <div class="date">
+                <p>{{post.published_date|date:"D M Y"}}</p>
+            </div>
+
+            <p  >{{post.text|truncatechars:512|striptags}}</p>
+            <a href="{% url  'post_detail' pk=post.pk %}">{{post.approve_comments.count}} comments</a>
+        </div>
+    {% endfor %}
+
+{% endblock %}
